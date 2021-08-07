@@ -10,7 +10,7 @@ var LogFile *os.File
 func LogInit() {
 	// 按照所需读写权限创建文件
 	var err error
-	LogFile, err = os.OpenFile("config/serverLog.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	LogFile, err = os.OpenFile("config/clientLog.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
