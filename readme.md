@@ -7,6 +7,8 @@
 ```
 ├── app
 │   └── main.go
+├── config
+│   └── clientLog.log
 ├── go.mod
 ├── go.sum
 ├── internal
@@ -16,8 +18,11 @@
 │   │   ├── GeneralReward.pb.go
 │   │   ├── GeneralReward.proto
 │   │   └── ViewModel.go
-│   └── server
-│       └── Client.go
+│   ├── server
+│   │   └── Client.go
+│   └── utils
+│       └── LogUtils.go
+├── readme.md
 └── view
     └── TalkView.go
 ```
