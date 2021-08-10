@@ -12,16 +12,18 @@
 ├── go.mod
 ├── go.sum
 ├── internal
-│   ├── handler
-│   │   └── WsHandler.go
+│   ├── ctrl
+│   │   └── WsController.go
 │   ├── model
 │   │   ├── GeneralReward.pb.go
 │   │   ├── GeneralReward.proto
 │   │   └── ViewModel.go
-│   ├── server
-│   │   └── Client.go
-│   └── utils
-│       └── LogUtils.go
+│   ├── service
+│   │   └── WsService.go
+│   ├── utils
+│   │   └── LogUtils.go
+│   └── ws
+│       └── Client.go
 ├── readme.md
 └── view
     └── TalkView.go
@@ -31,13 +33,14 @@
 
 ## 3.代码逻辑分层
 
-| 层        | 文件夹            | 主要职责               | 调用关系                 | 其他说明         |
-| --------- | ----------------- | ---------------------- | ------------------------ | ---------------- |
-| handler层 | /internal/handler | 处理具体业务逻辑       | 调用模型层，被控制层调用 | 不可同层相互调用 |
-| server层  | /internal/server  | 通用业务逻辑           | 调用模型层               | 不可同层相互调用 |
-| 模型层    | /internal/model   | 数据模型               | 被业务逻辑层调用         | 不可同层相互调用 |
-| 工具层    | /internal/utils   | 工具层                 | 被各层调用               | 不可同层相互调用 |
-| 配置层    | /config           | 存放配置文件和日志文件 |                          |                  |
+| 层        | 文件夹            | 主要职责                           | 调用关系                 | 其他说明         |
+| --------- | ----------------- | ---------------------------------- | ------------------------ | ---------------- |
+| 控制层    | /internal/ctrl    | 处理业务                           | 调用模型层，被控制层调用 | 不可同层相互调用 |
+| service层 | /internal/service | 通用业务逻辑                       | 调用模型层               | 不可同层相互调用 |
+| 模型层    | /internal/model   | 数据模型                           | 被业务逻辑层调用         | 不可同层相互调用 |
+| 工具层    | /internal/utils   | 工具层                             | 被各层调用               | 不可同层相互调用 |
+| 配置层    | /config           | 存放配置文件和日志文件             |                          |                  |
+| WS层      | /internal/ws      | 处理ws事件，管理ws连接，接收和发送 | 被各层调用               |                  |
 
 ## 4.存储设计
 

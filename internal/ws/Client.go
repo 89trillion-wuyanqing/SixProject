@@ -1,4 +1,4 @@
-package server
+package ws
 
 import (
 	"SixProject/internal/model"
@@ -146,6 +146,8 @@ func (c *Client) Write() {
 				UserClient.Socket.WriteMessage(websocket.TextMessage, message)
 				UserClient.Socket.Close()
 				model.SendButton.Disable()
+				model.UserList.Remove(model.ListMsg)
+				model.UserList.Refresh()
 				return
 			}
 			//有消息就写入，发送给web端

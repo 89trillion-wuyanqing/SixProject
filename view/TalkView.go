@@ -1,14 +1,11 @@
 package view
 
 import (
-	"SixProject/internal/handler"
+	"SixProject/internal/ctrl"
 	"SixProject/internal/model"
-	"SixProject/internal/server"
-	"errors"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
@@ -35,10 +32,10 @@ func InitView() {
 	}*/
 	usernameBox := container.NewHBox(usernameBox1, usernameBox2)
 
-	//server
-	model.ServerLabel = widget.NewLabel("server")
+	//service
+	model.ServerLabel = widget.NewLabel("service")
 	model.ServerEntry = widget.NewEntry()
-	model.ServerEntry.SetPlaceHolder("input server")
+	model.ServerEntry.SetPlaceHolder("input service")
 	model.PortEntry = widget.NewEntry()
 	model.PortEntry.SetPlaceHolder("input port")
 	serverBox1 := fyne.NewContainerWithLayout(layout.NewGridWrapLayout(fr1), model.ServerLabel)
@@ -55,7 +52,7 @@ func InitView() {
 	//连接按钮
 	model.ServerButton = &widget.Button{}
 	model.ServerButton.Text = "connect"
-	model.ServerButton.OnTapped = clickButtun(w1)
+	model.ServerButton.OnTapped = ctrl.ClickButtun(w1)
 	serverBox4 := fyne.NewContainerWithLayout(layout.NewGridWrapLayout(fr1), model.ServerButton)
 	serverBox5 := fyne.NewContainerWithLayout(layout.NewGridWrapLayout(fr2), model.StatusLabel1)
 	serverBox6 := fyne.NewContainerWithLayout(layout.NewGridWrapLayout(fr1), model.StatusLabel2)
@@ -85,7 +82,7 @@ func InitView() {
 
 	model.SendButton = &widget.Button{}
 	model.SendButton.Text = "Send"
-	model.SendButton.OnTapped = SendMassage()
+	model.SendButton.OnTapped = ctrl.SendMassage(w1)
 	lastBox2 := fyne.NewContainerWithLayout(layout.NewGridWrapLayout(fyne.NewSize(400, 100)), model.SendButton)
 	lastBox := container.NewHBox(lastBox1, lastBox2)
 
@@ -107,75 +104,4 @@ func InitView() {
 	//w.SetContent(content)
 	w.Resize(fyne.NewSize(1000, 600))
 	w.ShowAndRun()
-}
-
-func clickButtun(w fyne.Window) func() {
-	return func() {
-		if model.UsernameEntry.Text == "" {
-			//dialog.ShowInformation("Info", "Please input username", w)
-			dialog.ShowError(errors.New("Please input username"), w)
-			return
-		}
-		model.Username = model.UsernameEntry.Text
-		if model.ServerEntry.Text == "" {
-			//dialog.ShowInformation("Info", "Please input server", w)
-			dialog.ShowError(errors.New("Please input server"), w)
-			return
-		}
-		model.Server = model.ServerEntry.Text
-		if model.PortEntry.Text == "" {
-			//dialog.ShowInformation("Info", "Please input port", w)
-			dialog.ShowError(errors.New("Please input port"), w)
-			return
-		}
-		model.Port = model.PortEntry.Text
-
-		if model.ServerButton.Text == "connect" {
-
-			//开始websocket连接
-			handler.Login()
-
-		} else {
-			handler.Exit()
-
-		}
-	}
-}
-
-func SendMassage() func() {
-	return func() {
-
-		if server.UserClient.Socket != nil {
-
-			handler.SendMsg()
-			model.MessageEntry.Text = ""
-			model.MessageEntry.Refresh()
-		}
-		return
-	}
-
-}
-
-func makeListTab() *widget.List {
-	data := []string{"wuaynqing", "www", "list"}
-
-	list := widget.NewList(
-		func() int {
-			return len(data)
-		},
-		func() fyne.CanvasObject {
-			return container.NewHBox(widget.NewIcon(nil), widget.NewLabel("Template Object"))
-		},
-		func(id widget.ListItemID, item fyne.CanvasObject) {
-			for i, v := range data {
-				if i == id {
-					item.(*fyne.Container).Objects[1].(*widget.Label).SetText(v)
-				}
-
-			}
-
-		},
-	)
-
-	return list
 }
