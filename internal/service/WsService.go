@@ -53,12 +53,6 @@ func Login() {
 	model.ServerButton.Refresh()
 	model.SendButton.Enable()
 
-	//jsonStr ,r:=json.Marshal(model.Msg{Msg: model.Username+"登陆",Username: model.Username,Type: 1})
-	/*if r!=nil{
-		fmt.Println(r.Error())
-	}*/
-	//service.UserClient.Send<-jsonStr
-
 	go ws.UserClient.Read()
 	go ws.UserClient.Write()
 

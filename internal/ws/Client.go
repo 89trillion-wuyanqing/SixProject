@@ -59,9 +59,7 @@ func (c *Client) Read() {
 			panic(errors.New("连接出错，关闭连接"))
 			break
 		}
-		//如果没有错误信息就把信息放入broadcast
-		//jsonMessage, _ := proto.Marshal(&model.GeneralReward{Msg: string(message),Type: 1})
-		//var generalMsg = &model.GeneralReward{}
+
 		var generalMsg = &model.GeneralReward{}
 		e := proto.Unmarshal(message, generalMsg)
 		if e != nil {
@@ -107,21 +105,6 @@ func (c *Client) Write() {
 
 	for {
 
-		/*select {
-		case message,_:= <- c.Send:
-			var generalMsg = &model.Msg{}
-			json.Unmarshal(message,generalMsg)
-			if generalMsg.Type == 3{
-				c.Socket.WriteMessage(websocket.TextMessage, message)
-				return
-			}
-			err :=c.Socket.WriteMessage(websocket.TextMessage, message)
-			if (err != nil){
-				log.Println(err.Error())
-				return
-			}
-		}*/
-
 		select {
 
 		//从send里读消息
@@ -129,8 +112,6 @@ func (c *Client) Write() {
 			//如果没有消息
 			if !ok {
 
-				/*c.Socket.WriteMessage(websocket.CloseMessage, []byte{
-				})*/
 				break
 			}
 
@@ -161,18 +142,3 @@ func TimeOut() {
 	model.StatusLabel2.Text = "disconnect"
 	model.StatusLabel2.Refresh()
 }
-
-/*func (c *Client) WriteM(){
-	defer Wg.Done()
-	for {
-		fmt.Print("请输入:")
-		reader := bufio.NewReader(os.Stdin)
-		data, _ := reader.ReadString('\n')
-		var generalMsg = &model.Msg{}
-		json.Unmarshal([]byte(data),generalMsg)
-		fmt.Println("json解析：")
-		fmt.Println(generalMsg)
-		c.Send	<- []byte(data)
-		c.Socket.WriteMessage(1, []byte(data))
-	}
-}*/

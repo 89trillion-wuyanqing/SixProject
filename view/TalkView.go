@@ -88,20 +88,7 @@ func InitView() {
 
 	content1 := container.NewVBox(usernameBox, serverBox, bodyBox, lastBox)
 	w.SetContent(content1)
-	//sendButton.OnTapped=clickButtun(serverButton,statusLabel2,userList)
-	/*content := container.NewVBox(
-		widget.NewLabel("The top row of the VBox"),
-		container.NewHBox(
-			widget.NewLabel("Label 1"),
-			widget.NewLabel("Label 2"),
-		),
-	)
 
-	content.Add(widget.NewButton("Add more items", func() {
-		content.Add(widget.NewLabel("Added"))
-	}))
-	*/
-	//w.SetContent(content)
 	w.Resize(fyne.NewSize(1000, 600))
 	w.ShowAndRun()
 }

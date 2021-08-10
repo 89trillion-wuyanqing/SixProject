@@ -6,26 +6,25 @@
 
 ```
 ├── app
-│   └── main.go
-├── config
+│   └── main.go #程序入口
+├── config #配置文件
 │   └── clientLog.log
 ├── go.mod
-├── go.sum
 ├── internal
-│   ├── ctrl
+│   ├── ctrl #控制器层
 │   │   └── WsController.go
-│   ├── model
+│   ├── model #模型层
 │   │   ├── GeneralReward.pb.go
 │   │   ├── GeneralReward.proto
 │   │   └── ViewModel.go
-│   ├── service
+│   ├── service #service层
 │   │   └── WsService.go
-│   ├── utils
+│   ├── utils #工具层
 │   │   └── LogUtils.go
-│   └── ws
+│   └── ws #WS层
 │       └── Client.go
 ├── readme.md
-└── view
+└── view #视图层
     └── TalkView.go
 ```
 

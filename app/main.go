@@ -6,10 +6,9 @@ import (
 )
 
 func main() {
-	//初始化log
-	utils.LogInit()
+
 	//启动UI
 	view.InitView()
-
+	//关闭日志文件
 	defer utils.LogFile.Close()
 }
